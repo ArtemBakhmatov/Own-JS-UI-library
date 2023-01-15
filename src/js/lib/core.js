@@ -30,6 +30,11 @@ $.prototype.init = function(selector) {
     if (!selector) {
         return this;  // будет просто пустой объект
     }
+    if (selector.tagName) {
+        this[0] = selector;
+        this.length = 1;
+        return this; 
+    }
     Object.assign(this, document.querySelectorAll(selector));  // в существ-й объект добавить новое свойство
     this.length = document.querySelectorAll(selector).length;
     return this;
