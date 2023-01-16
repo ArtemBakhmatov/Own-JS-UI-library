@@ -230,6 +230,40 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.find = function (selecto
   }
   return this;
 };
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.closest = function (selector) {
+  let counter = 0;
+  for (let i = 0; i < this.length; i++) {
+    this[i] = this[i].closest(selector);
+    counter++;
+  }
+  const objLength = Object.keys(this).length;
+  for (; counter < objLength; counter++) {
+    delete this[counter];
+  }
+  return this;
+};
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.siblings = function () {
+  let numberOfitems = 0;
+  let counter = 0;
+  const copyObj = Object.assign({}, this);
+  for (let i = 0; i < copyObj.length; i++) {
+    const arr = copyObj[i].parentNode.children;
+    for (let j = 0; j < arr.length; j++) {
+      if (copyObj[i] === arr[j]) {
+        continue;
+      }
+      this[counter] = arr[j];
+      counter++;
+    }
+    numberOfitems += arr.length - 1;
+  }
+  this.length = numberOfitems;
+  const objLength = Object.keys(this).length;
+  for (; numberOfitems < objLength; numberOfitems++) {
+    delete this[numberOfitems];
+  }
+  return this;
+};
 
 /***/ }),
 
@@ -384,8 +418,14 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').on('click', f
 Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').click(function () {
   console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])(this).index());
 });
-console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('div').eq(2).find('.some'));
-console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').html('Hello!'));
+
+//console.log($('div').eq(2).find('.some'));
+
+//console.log($('button').html('Hello!'));
+
+//console.log($('.some').closest('.findmeq'));
+
+console.log(Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.findme').siblings());
 
 /***/ })
 
